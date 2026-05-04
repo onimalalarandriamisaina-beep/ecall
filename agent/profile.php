@@ -1,5 +1,4 @@
 <?php
-// agent/profile.php
 require_once __DIR__ . '/../includes/session.php';
 require_once __DIR__ . '/../config/db.php';
 requireRole('agent');
@@ -8,12 +7,10 @@ $pdo     = getPDO();
 $error   = '';
 $success = '';
 
-// Load agent
 $stmt  = $pdo->prepare("SELECT * FROM users WHERE id=?");
 $stmt->execute([$_SESSION['user_id']]);
 $agent = $stmt->fetch();
 
-// DELETE account
 if (isset($_POST['delete_account'])) {
     $pdo->prepare("DELETE FROM users WHERE id=?")->execute([$_SESSION['user_id']]);
     $_SESSION = [];
@@ -22,7 +19,6 @@ if (isset($_POST['delete_account'])) {
     exit;
 }
 
-// UPDATE profile
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['delete_account'])) {
     $nom       = trim($_POST['nom']       ?? '');
     $email     = trim($_POST['email']     ?? '');
@@ -47,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['delete_account'])) {
         }
         $_SESSION['user_nom'] = $nom;
         $success = 'Profil mis à jour.';
-        // Reload
         $stmt->execute([$_SESSION['user_id']]);
         $agent = $stmt->fetch();
     }

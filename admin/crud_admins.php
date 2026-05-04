@@ -1,5 +1,4 @@
 <?php
-// admin/crud_admins.php
 require_once __DIR__ . '/../includes/session.php';
 require_once __DIR__ . '/../config/db.php';
 requireRole('admin');
@@ -8,7 +7,6 @@ $pdo     = getPDO();
 $error   = '';
 $success = '';
 
-// DELETE — cannot delete yourself
 if (isset($_GET['delete'])) {
     $id = (int)$_GET['delete'];
     if ($id === (int)$_SESSION['user_id']) {
@@ -19,7 +17,6 @@ if (isset($_GET['delete'])) {
     }
 }
 
-// EDIT
 $editAdmin = null;
 if (isset($_GET['edit'])) {
     $id = (int)$_GET['edit'];
@@ -28,7 +25,6 @@ if (isset($_GET['edit'])) {
     $editAdmin = $st->fetch();
 }
 
-// POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom      = trim($_POST['nom']      ?? '');
     $email    = trim($_POST['email']    ?? '');

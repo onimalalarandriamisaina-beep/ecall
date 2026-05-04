@@ -1,5 +1,4 @@
 <?php
-// admin/crud_clients.php
 require_once __DIR__ . '/../includes/session.php';
 require_once __DIR__ . '/../config/db.php';
 requireRole('admin');
@@ -8,14 +7,12 @@ $pdo     = getPDO();
 $error   = '';
 $success = '';
 
-// DELETE
 if (isset($_GET['delete'])) {
     $id = (int)$_GET['delete'];
     $pdo->prepare("DELETE FROM users WHERE id=? AND role='client'")->execute([$id]);
     $success = 'Client supprimé.';
 }
 
-// EDIT — load
 $editClient = null;
 if (isset($_GET['edit'])) {
     $id = (int)$_GET['edit'];
@@ -24,7 +21,6 @@ if (isset($_GET['edit'])) {
     $editClient = $st->fetch();
 }
 
-// POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom       = trim($_POST['nom']       ?? '');
     $email     = trim($_POST['email']     ?? '');
@@ -61,7 +57,6 @@ include __DIR__ . '/../includes/header.php';
 <?php if ($success): ?><div class="alert-ecall success"><?= htmlspecialchars($success) ?></div><?php endif; ?>
 
 <?php if ($editClient): ?>
-<!-- EDIT FORM -->
 <div class="panel mb-4" style="max-width:480px;">
   <div class="panel-header"><span class="panel-title">✏️ Modifier Client</span></div>
   <div class="panel-body">
@@ -90,7 +85,6 @@ include __DIR__ . '/../includes/header.php';
 </div>
 <?php endif; ?>
 
-<!-- TABLE -->
 <div class="panel">
   <div class="panel-header">
     <span class="panel-title">👤 Liste des clients (<?= count($clients) ?>)</span>

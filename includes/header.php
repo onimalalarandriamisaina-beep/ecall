@@ -1,5 +1,4 @@
 <?php
-// includes/header.php
 $pageTitle = $pageTitle ?? 'E-CALL';
 $activeMenu = $activeMenu ?? '';
 ?>
@@ -14,7 +13,6 @@ $activeMenu = $activeMenu ?? '';
 </head>
 <body>
 
-<!-- SIDEBAR -->
 <aside class="sidebar">
     <div class="sidebar-logo">
         E-CALL
@@ -24,6 +22,9 @@ $activeMenu = $activeMenu ?? '';
         <?php if (($userRole ?? '') === 'admin'): ?>
             <a href="/ecall/admin/dashboard.php" class="<?= $activeMenu==='dash' ?'active':'' ?>">
                 📊 Dashboard
+            </a>
+            <a href="/ecall/admin/appels.php" class="<?= $activeMenu==='appels' ?'active':'' ?>">
+                📞 Appels
             </a>
             <a href="/ecall/admin/crud_agents.php" class="<?= $activeMenu==='agents' ?'active':'' ?>">
                 🎧 Agents
@@ -38,8 +39,11 @@ $activeMenu = $activeMenu ?? '';
             <a href="/ecall/agent/dashboard.php" class="<?= $activeMenu==='dash' ?'active':'' ?>">
                 📊 Dashboard
             </a>
-            <a href="/ecall/agent/profile.php" class="<?= $activeMenu==='profile'?'active':'' ?>">
-                👤 Mon Profil
+            <a href="/ecall/agent/appels.php" class="<?= $activeMenu==='appels' ?'active':'' ?>">
+                📞 Appels
+            </a>
+            <a href="/ecall/agent/informations.php" class="<?= $activeMenu==='informations'?'active':'' ?>">
+                👤 Mes Informations
             </a>
         <?php elseif (($userRole ?? '') === 'client'): ?>
             <a href="/ecall/client/dashboard.php" class="<?= $activeMenu==='dash'?'active':'' ?>">
@@ -47,6 +51,9 @@ $activeMenu = $activeMenu ?? '';
             </a>
             <a href="/ecall/client/appel.php" class="<?= $activeMenu==='appel'?'active':'' ?>">
                 📞 Lancer un Appel
+            </a>
+            <a href="/ecall/client/liste-appels.php" class="<?= $activeMenu==='mes-appels'?'active':'' ?>">
+                📋 Mes Appels
             </a>
         <?php endif; ?>
     </nav>
@@ -61,7 +68,6 @@ $activeMenu = $activeMenu ?? '';
     </div>
 </aside>
 
-<!-- MAIN -->
 <div class="main-wrap">
     <div class="topbar">
         <span class="topbar-title"><?= htmlspecialchars($pageTitle) ?></span>

@@ -1,5 +1,4 @@
 <?php
-// admin/crud_agents.php
 require_once __DIR__ . '/../includes/session.php';
 require_once __DIR__ . '/../config/db.php';
 requireRole('admin');
@@ -8,14 +7,12 @@ $pdo     = getPDO();
 $error   = '';
 $success = '';
 
-// DELETE
 if (isset($_GET['delete'])) {
     $id = (int)$_GET['delete'];
     $pdo->prepare("DELETE FROM users WHERE id=? AND role='agent'")->execute([$id]);
     $success = 'Agent supprimé.';
 }
 
-// EDIT — load data
 $editAgent = null;
 if (isset($_GET['edit'])) {
     $id = (int)$_GET['edit'];
@@ -24,7 +21,6 @@ if (isset($_GET['edit'])) {
     $editAgent = $st->fetch();
 }
 
-// POST: create or update
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom       = trim($_POST['nom']       ?? '');
     $email     = trim($_POST['email']     ?? '');
@@ -106,7 +102,7 @@ include __DIR__ . '/../includes/header.php';
                    value="<?= htmlspecialchars($editAgent['telephone'] ?? '') ?>">
           </div>
           <div class="mb-4">
-            <label class="form-label">Mot de passe <?= $editAgent ? '(laisser vide = inchangé)' : '*' ?></label>
+            <label class="form-label">Mot de passe<?= $editAgent ? '(laisser vide = inchangé)' : '' ?></label>
             <input type="password" name="password" class="form-control" placeholder="••••••••">
           </div>
           <button type="submit" class="btn-ecall"><?= $editAgent ? 'Mettre à jour' : 'Créer l\'agent' ?></button>
@@ -118,7 +114,6 @@ include __DIR__ . '/../includes/header.php';
     </div>
   </div>
 
-  <!-- TABLE -->
   <div class="col-lg-8">
     <div class="panel">
       <div class="panel-header">
